@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Data.Entity.Migrations.Model;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,15 +52,21 @@ namespace AgendaEntityFramework_CodeFirst
                 }
                 #endregion
 
+                #region Update
+                find.Phone = "1600009";
+                context.Entry(find).State = EntityState.Modified;
+                context.Persons.AddOrUpdate(find);
+                context.SaveChanges();
+                Console.WriteLine(find.ToString());
+                Console.ReadKey();
+                #endregion
+                
                 #region Delet
                 context.Entry(find).State = EntityState.Deleted;//entry é tipo um select, altera o estado para deleted
                 context.Persons.Remove(find);//para remover os registros é necessário alterar o estados para deleted (a função remove exige um estado alterado)
                 context.SaveChanges();//aqui executa realmente 
                 #endregion
 
-                #region Update
-
-                #endregion
                 Console.ReadKey();
             }
         }
